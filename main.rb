@@ -1,7 +1,16 @@
-your_name = "Terrence"
-puts "Hello #{your_name}"
+module Enumerable
+    def my_each
+     each  do |i|
+      yield i   
+      end
+      self
+    end
+  end
+
+ 
 
 
-seoo = [2, 3, 4, 5]
 
-seoo.sele
+  a = [1, 2, 3, 5] 
+     
+  a.my_each { |i| print  i  }
