@@ -1,8 +1,5 @@
-# frozen_string_literal: true
-
-source "https://rubygems.org"
-
-git_source(:github) {|enumerables| "https://github.com/#{enumerables}" }
+source 'https://rubygems.org'
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 # Use rubocop
 gem 'rubocop', '~>0.81.0'
