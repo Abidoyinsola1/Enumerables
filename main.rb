@@ -33,6 +33,15 @@ def my_all?
 end
     result
 end
+def my_any?
+  result = false
+  my_each do |i|
+  if yield i 
+      result = true
+  end
+end
+  result
+end
             
 end
 
@@ -40,7 +49,8 @@ end
   a.my_each { |i| print  i * 4 }
   a.each_with_index { |i| puts "#{i} is the value" }
   puts a.my_select(&:even?)
-  puts(a.my_all? { |i| i > 0})
+  puts(a.my_all? { |i| i > 1})
+  puts(a.my_any? { |i| i > 1})
 
   
 # returns true or false. if both conditions are true, it returns true, else false
