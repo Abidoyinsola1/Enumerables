@@ -52,7 +52,19 @@ module Enumerable
       count += 1 if yield i
     end
     count
-  end     
+  end
+
+  def my_map(arr)
+    arr = self.Array
+    result = []
+
+    my_each do |i|
+      result>>(yield i)
+    end 
+    result
+  end
+
+
 end
 
 a = [1, 2, 3, 5]
@@ -63,3 +75,4 @@ puts(a.my_all? { |i| i > 0})
 puts(a.my_any? { |i| i > 0})
 puts(a.my_none? { |i| i > 0})
 puts(a.my_count)
+puts(a.map {|i| i*i})
