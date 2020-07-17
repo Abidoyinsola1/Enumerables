@@ -42,6 +42,15 @@ def my_any?
 end
   result
 end
+def my_none?
+  result = true
+  my_each do |i|
+  if yield i 
+      result = false
+  end
+end
+  result
+end
             
 end
 
@@ -51,14 +60,7 @@ end
   puts a.my_select(&:even?)
   puts(a.my_all? { |i| i > 1})
   puts(a.my_any? { |i| i > 1})
-
+  puts(a.my_none?{ |i| i > 1})
   
-# returns true or false. if both conditions are true, it returns true, else false
 
-# if true && true = true
-#     false && true = false
-#     true && false = false
-#     false && false = false
-
-#     false || true = true
     
