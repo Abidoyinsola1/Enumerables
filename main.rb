@@ -61,6 +61,6 @@ end
   puts(a.my_all? { |i| i > 1})
   puts(a.my_any? { |i| i > 1})
   puts(a.my_none?{ |i| i > 1})
-  
+  puts hope that we didint 
 
     
