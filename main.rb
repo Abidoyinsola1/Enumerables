@@ -1,7 +1,8 @@
 module Enumerable
   def my_each
-    each do |i|
-      yield i
+    for i in 0...self.length
+    yield self[i]
+  
     end
     self
   end
@@ -64,6 +65,9 @@ module Enumerable
     result
   end
 
+  def my_inject
+    
+  end
 
 end
 
