@@ -1,6 +1,6 @@
 module Enumerable
   def my_each
-    for i in 0...self.length
+    for i in 0...length
       yield self[i]
     end
     self
@@ -54,36 +54,43 @@ module Enumerable
     count
   end
 
-  def my_map(arr)
-    arr = self.Array
+  def my_map(_arr)
+    _arr = self._arr
     result = []
 
     my_each do |i|
-      result>>(yield i)
-    end 
+      result >> (yield i)
+    end
     result
   end
-  def my_inject (val = 0)
-    i = 0
-    acc = val
 
-    while (i < self.length)
+  def my_inject(*val)
+    first_aug, second_aug = val
+    i = 0
+    acc = first_aug
+    acc = self[0] if first_aug.nil?
+    sym = second_aug if second_aug
+    elsif first_aug == Symbol || String
+      sym = first_aug
+    else
+        sym = nil
+    end
+    if block_given?
+   while i < self.length
       acc = yield(acc, self[i])
-      i = i + 1
+     i += 1
+    end
+    elsif !sym.nil? && sym.class == Symbol
+   while i < self.length
+      acc = acc.send(sym, self[i])
+      i += 1
+    end
+    elsif !sym.nil? && sym.class == String && %r{[+-/*]}.match(sym)
+      while i < self.length
+        acc = acc.send(sym, self[i])
+       i += 1
+      end
     end
     acc
   end
 end
-
-
-
-a = [1, 2, 3, 5]
-a.my_each { |i| print i * 4 }
-a.each_with_index { |i| puts "#{i} is the value of a" }
-puts a.my_select(&:even?)
-puts(a.my_all? { |i| i > 0})
-puts(a.my_any? { |i| i > 0})
-puts(a.my_none? { |i| i > 0})
-puts(a.my_count)
-puts(a.map {|i| i*i})
-puts (a.my_inject { |sum, n| sum + n })
