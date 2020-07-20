@@ -18,7 +18,7 @@ This project uses our methods for Enumerables in Ruby.The methods created are:
 
 ## Getting Started
 
-**To view this project, download the contents of the repository to your computer or clone the repository and open the bubble_sort.rb file**
+**To view this project, download the contents of the repository to your computer or clone the repository and open the main.rb file**
 
 ## Authors
 
