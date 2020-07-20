@@ -70,25 +70,24 @@ module Enumerable
     acc = first_aug
     acc = self[0] if first_aug.nil?
     sym = second_aug if second_aug
-    elsif first_aug == Symbol || String
+    if first_aug == Symbol || String
       sym = first_aug
-    else
-        sym = nil
+    elsif sym.nil?
     end
     if block_given?
-   while i < self.length
-      acc = yield(acc, self[i])
-     i += 1
-    end
+      while i < length
+        acc = yield(acc, self[i])
+        i += 1
+      end
     elsif !sym.nil? && sym.class == Symbol
-   while i < self.length
-      acc = acc.send(sym, self[i])
-      i += 1
-    end
-    elsif !sym.nil? && sym.class == String && %r{[+-/*]}.match(sym)
-      while i < self.length
+      while i < length
         acc = acc.send(sym, self[i])
-       i += 1
+        i += 1
+      end
+    elsif !sym.nil? && sym.class == String && %r{[+-/*]}.match(sym)
+      while i < length
+        acc = acc.send(sym, self[i])
+        i += 1
       end
     end
     acc
