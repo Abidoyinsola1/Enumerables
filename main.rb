@@ -1,6 +1,6 @@
 module Enumerable
   def my_each
-    for i in 0...length
+    each do |i|
       yield self[i]
     end
     self
@@ -64,31 +64,13 @@ module Enumerable
     result
   end
 
-  def my_inject(*val)
-    first_aug, second_aug = val
+  def my_inject(val = 0)
     i = 0
-    acc = first_aug
-    acc = self[0] if first_aug.nil?
-    sym = second_aug if second_aug
-    if first_aug == Symbol || String
-      sym = first_aug
-    elsif sym.nil?
-    end
-    if block_given?
-      while i < length
-        acc = yield(acc, self[i])
-        i += 1
-      end
-    elsif !sym.nil? && sym.class == Symbol
-      while i < length
-        acc = acc.send(sym, self[i])
-        i += 1
-      end
-    elsif !sym.nil? && sym.class == String && %r{[+-/*]}.match(sym)
-      while i < length
-        acc = acc.send(sym, self[i])
-        i += 1
-      end
+    acc = val
+
+    while i < length
+      acc = yield(acc, self[i])
+      i += 1
     end
     acc
   end
