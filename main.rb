@@ -63,9 +63,19 @@ module Enumerable
     end 
     result
   end
+  def my_inject (val = 0)
+    i = 0
+    acc = val
 
-
+    while (i < self.length)
+      acc = yield(acc, self[i])
+      i = i + 1
+    end
+    acc
+  end
 end
+
+
 
 a = [1, 2, 3, 5]
 a.my_each { |i| print i * 4 }
@@ -76,3 +86,4 @@ puts(a.my_any? { |i| i > 0})
 puts(a.my_none? { |i| i > 0})
 puts(a.my_count)
 puts(a.map {|i| i*i})
+puts (a.my_inject { |sum, n| sum + n })
