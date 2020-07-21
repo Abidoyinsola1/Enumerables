@@ -18,7 +18,13 @@ This project uses our methods for Enumerables in Ruby.The methods created are:
 
 ## Getting Started
 
-**To view this project, download the contents of the repository to your computer or clone the repository and open the main.rb file**
+To get a local copy of the repository please run the following commands on your terminal:
+
+- git clone https://github.com/Abidoyinsola1/Enumerables.git
+- cd into above cloned directory
+- run ruby enumerable.rb
+- you can use your test codes to test the methods
+
 
 ## Authors
 

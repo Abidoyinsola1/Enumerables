@@ -44,7 +44,7 @@ module Enumerable
     result
   end
 
-  def my_count(count = nil)
+  def my_count(*)
     return length unless block_given?
 
     count = 0
@@ -55,19 +55,17 @@ module Enumerable
   end
 
   def my_map(val = nil)
-   
     result = []
 
     my_each do |i|
-      if val 
-      result.push(val.call i)
+      if val
+        result.push((val.call i))
       else
         result.push(yield i)
       end
     end
     result
   end
-
 
   def my_inject(val = 0)
     i = 0
@@ -79,12 +77,8 @@ module Enumerable
     end
     acc
   end
+end
 
+def multiply_els(arr)
+  arr.my_inject { |result, val| result * val }
 end
-def multiply_els (arr)
-  arr.my_inject {|result, i|  result*i}
-end
-a= [2, 3, 4, 5]
-puts (a.my_inject(5) { |x, y| x + y})
-p a.my_inject {|sum, num| sum+num}
-p a.my_inject(1) {|pdt, n|  pdt*n}
