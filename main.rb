@@ -1,5 +1,7 @@
 module Enumerable
   def my_each
+    return unless block_given?
+
     each do |i|
       yield i
     end
@@ -7,12 +9,16 @@ module Enumerable
   end
 
   def my_each_with_index
+    return unless block_given?
+
     0.upto(length - 1) do |i|
-      yield(self[i], i)
+      yield i, index
+      index + 1
     end
   end
 
   def my_select
+    return unless block_given?
     result = []
     my_each do |i|
       result.push(i) if yield i
@@ -20,26 +26,38 @@ module Enumerable
     result
   end
 
-  def my_all?
+  def my_all?(*val)
     result = true
-    my_each do |i|
-      result = false unless yield i
+    if !val[0].nil?
+      my_each { |i| result = false unless val[0] == i }
+    elsif !block_given?
+      my_each { |i| result = false unless i }
+    else
+      my_each { |i| result = false unless yield(i) }
     end
     result
   end
 
-  def my_any?
+  def my_any?(*val)
+      result = true
+    if !val[0].nil?
+      my_each { |i| result = false unless val[0] == i } 
+    elsif !block_given?
+      my_each { |i| result = false unless i }
+    else
+      my_each { |i| result = false unless yield(i) }
+    end
+    result
+  end
+  
+  def my_none?(*val)
     result = false
-    my_each do |i|
-      result = true if yield i
-    end
-    result
-  end
-
-  def my_none?
-    result = true
-    my_each do |i|
-      result = false if yield i
+    if !val[0].nil?
+      my_each { |i| result = false unless val[0] == i } 
+    elsif !block_given?
+      my_each { |i| result = false unless i }
+    else
+      my_each { |i| result = false if yield(i) }
     end
     result
   end
@@ -55,6 +73,8 @@ module Enumerable
   end
 
   def my_map(val = nil)
+    return to_enum(:my_map) unless block_given?
+
     result = []
 
     my_each do |i|
@@ -77,8 +97,10 @@ module Enumerable
     end
     acc
   end
-end
+ end
+
+
 
 def multiply_els(arr)
-  arr.my_inject { |result, val| result * val }
+  arr.my_inject(1) { |val, i| val * i }
 end
