@@ -19,6 +19,7 @@ module Enumerable
 
   def my_select
     return unless block_given?
+
     result = []
     my_each do |i|
       result.push(i) if yield i
@@ -39,9 +40,9 @@ module Enumerable
   end
 
   def my_any?(*val)
-      result = true
+    result = true
     if !val[0].nil?
-      my_each { |i| result = false unless val[0] == i } 
+      my_each { |i| result = false unless val[0] == i }
     elsif !block_given?
       my_each { |i| result = false unless i }
     else
@@ -49,11 +50,11 @@ module Enumerable
     end
     result
   end
-  
+
   def my_none?(*val)
     result = false
     if !val[0].nil?
-      my_each { |i| result = false unless val[0] == i } 
+      my_each { |i| result = false unless val[0] == i }
     elsif !block_given?
       my_each { |i| result = false unless i }
     else
@@ -97,9 +98,7 @@ module Enumerable
     end
     acc
   end
- end
-
-
+end
 
 def multiply_els(arr)
   arr.my_inject(1) { |val, i| val * i }
