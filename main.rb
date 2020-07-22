@@ -88,13 +88,30 @@ module Enumerable
     result
   end
 
-  def my_inject(val = 0)
+  def my_inject(first_aug = nil)
     i = 0
-    acc = val
-
-    while i < length
-      acc = yield(acc, self[i])
-      i += 1
+    acc = first_aug
+    sym = (first_aug if first_aug == Symbol || String)
+    if block_given?
+      while i < length
+        if acc.nil?
+          acc = self[0]
+          i += 1
+          next
+        end
+        acc = yield(acc, self[i])
+        i += 1
+      end
+    elsif !sym.nil? && sym.class == Symbol
+      while i < length
+        acc = acc.send(sym, self[i])
+        i += 1
+      end
+    elsif !sym.nil? && sym.class == String && %r{[+-/*]}.match(sym)
+      while i < length
+        acc = acc.send(sym, self[i])
+        i += 1
+      end
     end
     acc
   end
